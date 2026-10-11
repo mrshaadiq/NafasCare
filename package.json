@@ -1,0 +1,5 @@
+{
+  "name": "napascare",
+  "private": true,
+  "workspaces": ["api"]
+}

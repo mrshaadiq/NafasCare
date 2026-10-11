@@ -1,0 +1,5 @@
+name = "napascare-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-11"
+
+# Demo only: synthetic data. D1 binding is added once the DB decision is final (doc 12.1).
