@@ -20,7 +20,19 @@ describe("triage", () => {
     expect(r.outcome).toBe("perlu-pertolongan-segera");
   });
 
-  it("out-of-scope age gets no score", () => {
+  it("child with a danger sign still gets the urgent direction", () => {
+    const r = triage({ age: 10, answers: { ...ok, nyeri_dada: true } });
+    expect(r.outcome).toBe("perlu-pertolongan-segera");
+    expect(r.reasons.join(" ")).toContain("Di luar cakupan dewasa");
+  });
+
+  it("unknown age with a danger sign still gets the urgent direction", () => {
+    const r = triage({ age: null, answers: { bibir_biru: true } });
+    expect(r.outcome).toBe("perlu-pertolongan-segera");
+    expect(r.missing_fields).toContain("age");
+  });
+
+  it("out-of-scope age without danger signs gets no score", () => {
     const r = triage({ age: 10, answers: ok });
     expect(r.outcome).toBe("belum-dapat-dinilai");
   });
@@ -29,6 +41,14 @@ describe("triage", () => {
     const r = triage({ age: 30, answers: { durasi_hari: 2 } });
     expect(r.outcome).toBe("belum-dapat-dinilai");
     expect(r.missing_fields).toEqual(["demam"]);
+  });
+
+  it("an invalid duration is treated as missing, never as a low result", () => {
+    for (const bad of ["abc", -1, 2.5, NaN]) {
+      const r = triage({ age: 30, answers: { durasi_hari: bad, demam: false } });
+      expect(r.outcome).toBe("belum-dapat-dinilai");
+      expect(r.missing_fields).toEqual(["durasi_hari"]);
+    }
   });
 
   it("low result is not worded as disease-free", () => {

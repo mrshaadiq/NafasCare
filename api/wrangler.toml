@@ -2,4 +2,10 @@ name = "napascare-api"
 main = "src/index.ts"
 compatibility_date = "2026-10-11"
 
-# Demo only: synthetic data. D1 binding is added once the DB decision is final (doc 12.1).
+# Demo only: synthetic data. The id below is a local placeholder; replace with
+# `wrangler d1 create napascare` output before any remote deploy.
+[[d1_databases]]
+binding = "DB"
+database_name = "napascare"
+database_id = "1b7b8c17-1e37-4007-a7eb-26f3fad2eee3"
+migrations_dir = "migrations"
