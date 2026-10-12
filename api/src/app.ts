@@ -1,19 +1,24 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import {
   AnswerPatch,
+  AttachAudio,
+  CONSENT_PURPOSE,
+  CreateConsent,
   CreateScreening,
   MODE,
   RULE_STATUS,
-  type ApiError,
+  type Consent,
   type Screening,
   type TriageResult,
 } from "../../shared/types";
+import { describeSample, listSamples } from "./domain/audio";
 import { PROTOCOL_VERSION, triage } from "./domain/triage";
+import { defaultDeps, err, type AppEnv, type Deps } from "./http";
+import { registerCareRoutes } from "./routes/care";
 import type { Repository } from "./repo";
 
-type Env = { Variables: { userId: string } };
-
-const err = (code: string, message: string): ApiError => ({ error: { code, message } });
+type Env = AppEnv;
 
 /** Owner check: a foreign object is indistinguishable from a missing one (404). */
 async function loadOwned(repo: Repository, id: string, userId: string): Promise<Screening | null> {
@@ -21,8 +26,18 @@ async function loadOwned(repo: Repository, id: string, userId: string): Promise<
   return s && s.user_id === userId ? s : null;
 }
 
-export function createApp(repo: Repository) {
+export function createApp(repo: Repository, deps: Deps = defaultDeps) {
   const app = new Hono<Env>();
+
+  // Registered before auth so preflight requests (which carry no X-Demo-User) are answered.
+  app.use(
+    "*",
+    cors({
+      origin: "*",
+      allowHeaders: ["Content-Type", "X-Demo-User"],
+      allowMethods: ["GET", "POST", "PATCH", "OPTIONS"],
+    }),
+  );
 
   app.use("*", async (c, next) => {
     const userId = c.req.header("X-Demo-User");
@@ -34,6 +49,20 @@ export function createApp(repo: Repository) {
   app.onError((e, c) => {
     console.error("internal error", e.name);
     return c.json(err("internal", "Terjadi kesalahan; data tidak tersimpan."), 500);
+  });
+
+  app.post("/consents", async (c) => {
+    const body = CreateConsent.safeParse(await c.req.json().catch(() => null));
+    if (!body.success) return c.json(err("invalid_input", body.error.message), 400);
+    const consent: Consent = {
+      id: crypto.randomUUID(),
+      user_id: c.get("userId"),
+      purpose: body.data.purpose,
+      notice_version: body.data.notice_version,
+      granted_at: new Date().toISOString(),
+    };
+    await repo.saveConsent(consent);
+    return c.json(consent, 201);
   });
 
   app.post("/screenings", async (c) => {
@@ -67,6 +96,10 @@ export function createApp(repo: Repository) {
   app.post("/screenings/:id/complete", async (c) => {
     const s = await loadOwned(repo, c.req.param("id"), c.get("userId"));
     if (!s) return c.json(err("not_found", "Skrining tidak ditemukan."), 404);
+    if (s.status === "selesai") return c.json(err("conflict", "Skrining sudah selesai."), 409);
+    if (!(await repo.hasConsent(s.user_id, CONSENT_PURPOSE))) {
+      return c.json(err("consent_required", "Persetujuan pemrosesan belum dicatat."), 403);
+    }
     const decision = triage({ age: s.age, answers: s.answers });
     const now = new Date().toISOString();
     const result: TriageResult = {
@@ -77,8 +110,7 @@ export function createApp(repo: Repository) {
       mode: MODE,
       created_at: now,
     };
-    await repo.saveResult(result);
-    await repo.updateScreening({ ...s, status: "selesai", completed_at: now });
+    await repo.completeScreening({ ...s, status: "selesai", completed_at: now }, result);
     return c.json(result);
   });
 
@@ -89,6 +121,33 @@ export function createApp(repo: Repository) {
     if (!r) return c.json(err("not_ready", "Hasil belum tersedia."), 409);
     return c.json(r);
   });
+
+  app.get("/audio-samples", (c) => c.json(listSamples()));
+
+  // Research samples only: the pattern comes from dataset annotations and never feeds triage.
+  app.post("/screenings/:id/audio", async (c) => {
+    const s = await loadOwned(repo, c.req.param("id"), c.get("userId"));
+    if (!s) return c.json(err("not_found", "Skrining tidak ditemukan."), 404);
+    if (!(await repo.hasConsent(s.user_id, CONSENT_PURPOSE))) {
+      return c.json(err("consent_required", "Persetujuan pemrosesan belum dicatat."), 403);
+    }
+    const body = AttachAudio.safeParse(await c.req.json().catch(() => null));
+    if (!body.success) return c.json(err("invalid_input", body.error.message), 400);
+    const result = describeSample(body.data.sample_id, s.id, deps.now().toISOString());
+    if (!result) return c.json(err("unknown_sample", "Sampel audio tidak dikenal."), 404);
+    await repo.saveAudioResult(result);
+    return c.json(result, 201);
+  });
+
+  app.get("/screenings/:id/audio", async (c) => {
+    const s = await loadOwned(repo, c.req.param("id"), c.get("userId"));
+    if (!s) return c.json(err("not_found", "Skrining tidak ditemukan."), 404);
+    const r = await repo.getAudioResult(s.id);
+    if (!r) return c.json(err("not_found", "Belum ada audio pada skrining ini."), 404);
+    return c.json(r);
+  });
+
+  registerCareRoutes(app, repo, deps);
 
   return app;
 }

@@ -1,4 +1,4 @@
-import type { Answers, TriageOutcome } from "../../../shared/types";
+import type { TriageOutcome } from "../../../shared/types";
 
 /** DRAFT rule set. Not clinically reviewed; contents await a reviewer (open question #2). */
 export const PROTOCOL_VERSION = "v1-draf";
@@ -17,7 +17,8 @@ export const REQUIRED_FIELDS = ["durasi_hari", "demam"] as const;
 
 export interface TriageInput {
   age: number | null;
-  answers: Answers;
+  /** Deliberately loose: the rule never trusts types, so bad data degrades to "missing". */
+  answers: Record<string, unknown>;
 }
 
 export interface TriageDecision {
@@ -26,16 +27,36 @@ export interface TriageDecision {
   missing_fields: string[];
 }
 
-const isAnswered = (v: unknown) => v !== undefined && v !== null && v !== "";
+const isValidDuration = (v: unknown) => typeof v === "number" && Number.isInteger(v) && v >= 0;
+const isValidBool = (v: unknown) => typeof v === "boolean";
+
+const FIELD_VALID: Record<(typeof REQUIRED_FIELDS)[number], (v: unknown) => boolean> = {
+  durasi_hari: isValidDuration,
+  demam: isValidBool,
+};
 
 /**
- * Pure function. Order is fixed: scope -> danger signs -> missing data -> consult/monitor.
+ * Pure function. Order is fixed: danger signs -> scope -> missing data -> consult/monitor.
+ * Danger signs apply to everyone, including out-of-scope or unknown age (FR-04, 7.5).
  * Audio is deliberately not an input, so it can never lower an urgent outcome.
  */
 export function triage({ age, answers }: TriageInput): TriageDecision {
-  const missing_fields = REQUIRED_FIELDS.filter((f) => !isAnswered(answers[f]));
+  const missing = REQUIRED_FIELDS.filter((f) => !FIELD_VALID[f](answers[f])) as string[];
+  const outOfScope = age !== null && age < ADULT_MIN_AGE;
 
-  if (age === null || age < ADULT_MIN_AGE) {
+  const present = Object.entries(DANGER_SIGNS).filter(([k]) => answers[k] === true);
+  if (present.length > 0) {
+    const reasons = present.map(([, label]) => label);
+    if (age === null) reasons.push("Usia belum diisi; arahan segera tetap berlaku.");
+    if (outOfScope) reasons.push("Di luar cakupan dewasa; arahan segera tetap berlaku.");
+    return {
+      outcome: "perlu-pertolongan-segera",
+      reasons,
+      missing_fields: age === null ? ["age", ...missing] : missing,
+    };
+  }
+
+  if (age === null || outOfScope) {
     return {
       outcome: "belum-dapat-dinilai",
       reasons: [
@@ -43,30 +64,20 @@ export function triage({ age, answers }: TriageInput): TriageDecision {
           ? "Usia belum diisi; cakupan MVP adalah dewasa."
           : "Di luar cakupan dewasa; tidak ada skor. Cari bantuan tenaga medis bila ada keluhan napas.",
       ],
-      missing_fields: age === null ? ["age", ...missing_fields] : missing_fields,
+      missing_fields: age === null ? ["age", ...missing] : missing,
     };
   }
 
-  const present = Object.entries(DANGER_SIGNS).filter(([k]) => answers[k] === true);
-  if (present.length > 0) {
-    return {
-      outcome: "perlu-pertolongan-segera",
-      reasons: present.map(([, label]) => label),
-      missing_fields,
-    };
-  }
-
-  if (missing_fields.length > 0) {
+  if (missing.length > 0) {
     return {
       outcome: "belum-dapat-dinilai",
       reasons: ["Informasi belum lengkap; tidak diisi dengan asumsi."],
-      missing_fields,
+      missing_fields: missing,
     };
   }
 
   const reasons: string[] = [];
-  const durasi = Number(answers.durasi_hari);
-  if (durasi >= 14) reasons.push("Keluhan berlangsung 14 hari atau lebih");
+  if ((answers.durasi_hari as number) >= 14) reasons.push("Keluhan berlangsung 14 hari atau lebih");
   if (answers.demam === true) reasons.push("Ada demam");
 
   return reasons.length > 0
