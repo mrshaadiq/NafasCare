@@ -191,6 +191,8 @@ Kekuatan produk bergantung pada kualitas alur dan bukti manfaat. Tim perlu memer
 | P2 | Risiko kardiovaskular | Input dan model tersendiri |
 | P2 | Integrasi layanan mitra | Berdasarkan kontrak dan akses resmi |
 
+> **Pembaruan 12 Oktober 2026:** tim memilih urutan backend-first. API Hono dengan D1 lokal sudah dikerjakan lebih dulu (lihat `RINCIAN_PENGERJAAN_BACKEND_FIRST.md`), sehingga baris P1 "API backend" dan langkah 9 di 18.3 tidak lagi berlaku. Urutan triase juga berubah: tanda bahaya diperiksa sebelum gerbang cakupan (menggantikan urutan langkah 1–2 di 10.2). Bagian lain dokumen ini tidak berubah.
+
 P0 adalah lingkup empat hari pertama: frontend dan data simulasi. Backend dan model AI belum menjadi dependensi prototype. LocalStorage hanya menyimpan contoh di browser dan tidak untuk data pasien nyata. Analisis audio boleh ditampilkan sebagai mock yang jelas diberi label atau sebagai eksperimen offline pada sampel riset; jangan menyebutnya inferensi mikrofon HP yang sudah tervalidasi.
 
 MVP tidak mengasumsikan akses database Halodoc, alat medis milik pengguna, model klinis yang sudah tersedia, atau notifikasi yang pasti diterima.
