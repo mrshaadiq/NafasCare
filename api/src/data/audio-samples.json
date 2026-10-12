@@ -1,0 +1,67 @@
+{
+  "source": "ICBHI 2017 Respiratory Sound Database",
+  "citation": "Rocha et al. 2019, Physiological Measurement 40 035001",
+  "reject_below_hz": 8000,
+  "samples": [
+    {
+      "id": "103_2b2_Ar_mc_LittC2SE",
+      "device": "LittC2SE",
+      "site": "anterior kanan",
+      "duration_s": 20.0,
+      "sample_rate_hz": 44100,
+      "cycles": 6,
+      "cycles_with_crackle": 0,
+      "cycles_with_wheeze": 4,
+      "cycles_with_both": 0,
+      "note": "wheeze pada anotasi"
+    },
+    {
+      "id": "107_2b3_Al_mc_AKGC417L",
+      "device": "AKGC417L",
+      "site": "anterior kiri",
+      "duration_s": 20.0,
+      "sample_rate_hz": 44100,
+      "cycles": 8,
+      "cycles_with_crackle": 7,
+      "cycles_with_wheeze": 0,
+      "cycles_with_both": 0,
+      "note": "crackle pada anotasi"
+    },
+    {
+      "id": "107_2b3_Ar_mc_AKGC417L",
+      "device": "AKGC417L",
+      "site": "anterior kanan",
+      "duration_s": 20.0,
+      "sample_rate_hz": 44100,
+      "cycles": 8,
+      "cycles_with_crackle": 8,
+      "cycles_with_wheeze": 7,
+      "cycles_with_both": 7,
+      "note": "crackle dan wheeze pada anotasi"
+    },
+    {
+      "id": "101_1b1_Al_sc_Meditron",
+      "device": "Meditron",
+      "site": "anterior kiri",
+      "duration_s": 20.0,
+      "sample_rate_hz": 44100,
+      "cycles": 12,
+      "cycles_with_crackle": 0,
+      "cycles_with_wheeze": 0,
+      "cycles_with_both": 0,
+      "note": "tanpa crackle/wheeze pada anotasi"
+    },
+    {
+      "id": "104_1b1_Al_sc_Litt3200",
+      "device": "Litt3200",
+      "site": "anterior kiri",
+      "duration_s": 15.9,
+      "sample_rate_hz": 4000,
+      "cycles": 6,
+      "cycles_with_crackle": 0,
+      "cycles_with_wheeze": 0,
+      "cycles_with_both": 0,
+      "note": "laju sampel di bawah ambang demo"
+    }
+  ]
+}
