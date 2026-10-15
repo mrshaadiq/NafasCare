@@ -40,13 +40,35 @@ describe("audio sample domain", () => {
     for (const s of listSamples()) {
       const r = describeSample(s.id, "x", "2026-10-12T00:00:00Z")!;
       expect(r.source).toBe("anotasi-dataset");
-      expect(r.model_version).toBeNull();
+      expect(r.model_version).toBe(r.model?.model_version ?? null);
       expect(r.mode).toBe("simulasi");
       expect(r.notice).toContain("bukan prediksi model");
       expect(JSON.stringify(r)).not.toMatch(/confidence|probabilit|persen/i);
     }
     const none = describeSample("101_1b1_Al_sc_Meditron", "x", "t")!;
     expect(none.notice).toContain("bukan bukti bahwa pengguna sehat");
+  });
+});
+
+describe("offline model output", () => {
+  it("is separate from the annotation pattern and is never attached to a rejected sample", () => {
+    for (const s of listSamples()) {
+      const r = describeSample(s.id, "x", "2026-10-12T00:00:00Z")!;
+      if (r.status === "ditolak") {
+        expect(r.model).toBeNull();
+        expect(r.model_version).toBeNull();
+        continue;
+      }
+      if (!r.model) continue; // manifest generated without ml/predict_manifest.py
+      expect(r.model.model_version).toBeTruthy();
+      expect(r.model.cycles_matching_annotation).toBeLessThanOrEqual(r.model.cycles);
+      const predicted = Object.values(r.model.cycles_predicted).reduce((a, b) => a + b, 0);
+      expect(predicted).toBe(r.model.cycles);
+      expect(r.model.cycles).toBe(r.cycles);
+      expect(typeof r.model.in_training_data).toBe("boolean");
+      expect(r.notice).toContain("belum divalidasi klinis");
+      expect(r.notice).toContain("tidak dipakai oleh aturan triase");
+    }
   });
 });
 

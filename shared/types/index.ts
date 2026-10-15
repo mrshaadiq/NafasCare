@@ -238,10 +238,28 @@ export interface AudioSampleInfo {
   note: string;
 }
 
+/**
+ * Offline experiment output for one research sample, computed in `ml/` and stored in the
+ * manifest. Never run on a user's phone recording, never a diagnosis, never a percentage.
+ */
+export interface AudioModelOutput {
+  model_version: string;
+  /** Per-cycle predicted class counts, keyed by class name (normal, crackle, wheeze, both). */
+  cycles_predicted: Record<string, number>;
+  /** Cycles where the prediction equals the dataset annotation, out of `cycles`. */
+  cycles_matching_annotation: number;
+  cycles: number;
+  /** True when this sample's patient was in the training split, so the match is optimistic. */
+  in_training_data: boolean;
+  /** Macro-F1 of this model on held-out patients (offline, one split). */
+  heldout_macro_f1: number;
+  note: string;
+}
+
 export interface AudioResult {
   screening_id: string;
   sample_id: string;
-  /** Always "anotasi-dataset": the pattern comes from the dataset's labels, not a model. */
+  /** Always "anotasi-dataset": `pattern` comes from the dataset's labels, not a model. */
   source: "anotasi-dataset";
   source_label: string;
   status: "diterima" | "ditolak";
@@ -253,7 +271,10 @@ export interface AudioResult {
   cycles_with_wheeze: number;
   device: string;
   site: string;
-  model_version: null;
+  /** Version of the offline model whose output is in `model`; null when none is attached. */
+  model_version: string | null;
+  /** Separate from `pattern`: the experimental model's output for this sample, or null. */
+  model: AudioModelOutput | null;
   mode: typeof MODE;
   notice: string;
   created_at: string;

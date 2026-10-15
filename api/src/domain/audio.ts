@@ -1,4 +1,4 @@
-import type { AudioPattern, AudioResult, AudioSampleInfo } from "../../../shared/types";
+import type { AudioModelOutput, AudioPattern, AudioResult, AudioSampleInfo } from "../../../shared/types";
 import { MODE } from "../../../shared/types";
 import manifest from "../data/audio-samples.json";
 
@@ -6,6 +6,8 @@ interface ManifestSample extends AudioSampleInfo {
   cycles_with_crackle: number;
   cycles_with_wheeze: number;
   cycles_with_both: number;
+  /** Written by `ml/predict_manifest.py`; absent when no model output was generated. */
+  model?: AudioModelOutput;
 }
 
 const SAMPLES = manifest.samples as ManifestSample[];
@@ -46,7 +48,6 @@ export function describeSample(sampleId: string, screeningId: string, nowIso: st
     cycles_with_wheeze: s.cycles_with_wheeze,
     device: s.device,
     site: s.site,
-    model_version: null,
     mode: MODE,
     created_at: nowIso,
   };
@@ -54,6 +55,8 @@ export function describeSample(sampleId: string, screeningId: string, nowIso: st
   if (s.sample_rate_hz < REJECT_BELOW_HZ) {
     return {
       ...base,
+      model_version: null,
+      model: null, // a rejected recording is not scored, by the model or otherwise
       status: "ditolak",
       rejection_reason: `Laju sampel ${s.sample_rate_hz} Hz di bawah ambang pemeriksaan demo (${REJECT_BELOW_HZ} Hz, belum divalidasi).`,
       pattern: null,
@@ -66,14 +69,22 @@ export function describeSample(sampleId: string, screeningId: string, nowIso: st
   const pattern: AudioPattern =
     crackle && wheeze ? "crackle-dan-wheeze" : crackle ? "crackle" : wheeze ? "wheeze" : "tidak-terdeteksi";
 
+  const model = s.model ?? null;
+  const modelNote = model
+    ? ` Bidang "model" berisi keluaran eksperimen offline ${model.model_version} pada sampel riset ini; ` +
+      `performanya masih rendah, belum divalidasi klinis, dan tidak dipakai oleh aturan triase.`
+    : "";
+
   return {
     ...base,
+    model_version: model?.model_version ?? null,
+    model,
     status: "diterima",
     rejection_reason: null,
     pattern,
     notice:
-      pattern === "tidak-terdeteksi"
+      (pattern === "tidak-terdeteksi"
         ? `${NOTICE_BASE} Tidak adanya crackle atau wheeze pada anotasi bukan bukti bahwa pengguna sehat.`
-        : NOTICE_BASE,
+        : NOTICE_BASE) + modelNote,
   };
 }

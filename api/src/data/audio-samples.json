@@ -13,7 +13,21 @@
       "cycles_with_crackle": 0,
       "cycles_with_wheeze": 4,
       "cycles_with_both": 0,
-      "note": "wheeze pada anotasi"
+      "note": "wheeze pada anotasi",
+      "model": {
+        "model_version": "logmel-cnn-v0",
+        "cycles_predicted": {
+          "normal": 5,
+          "crackle": 0,
+          "wheeze": 1,
+          "both": 0
+        },
+        "cycles_matching_annotation": 3,
+        "cycles": 6,
+        "in_training_data": true,
+        "heldout_macro_f1": 0.4271,
+        "note": "Eksperimen offline pada siklus beranotasi; bukan diagnosis dan bukan inferensi mikrofon HP."
+      }
     },
     {
       "id": "107_2b3_Al_mc_AKGC417L",
@@ -25,7 +39,21 @@
       "cycles_with_crackle": 7,
       "cycles_with_wheeze": 0,
       "cycles_with_both": 0,
-      "note": "crackle pada anotasi"
+      "note": "crackle pada anotasi",
+      "model": {
+        "model_version": "logmel-cnn-v0",
+        "cycles_predicted": {
+          "normal": 6,
+          "crackle": 1,
+          "wheeze": 1,
+          "both": 0
+        },
+        "cycles_matching_annotation": 1,
+        "cycles": 8,
+        "in_training_data": true,
+        "heldout_macro_f1": 0.4271,
+        "note": "Eksperimen offline pada siklus beranotasi; bukan diagnosis dan bukan inferensi mikrofon HP."
+      }
     },
     {
       "id": "107_2b3_Ar_mc_AKGC417L",
@@ -37,7 +65,21 @@
       "cycles_with_crackle": 8,
       "cycles_with_wheeze": 7,
       "cycles_with_both": 7,
-      "note": "crackle dan wheeze pada anotasi"
+      "note": "crackle dan wheeze pada anotasi",
+      "model": {
+        "model_version": "logmel-cnn-v0",
+        "cycles_predicted": {
+          "normal": 1,
+          "crackle": 1,
+          "wheeze": 1,
+          "both": 5
+        },
+        "cycles_matching_annotation": 4,
+        "cycles": 8,
+        "in_training_data": true,
+        "heldout_macro_f1": 0.4271,
+        "note": "Eksperimen offline pada siklus beranotasi; bukan diagnosis dan bukan inferensi mikrofon HP."
+      }
     },
     {
       "id": "101_1b1_Al_sc_Meditron",
@@ -49,7 +91,21 @@
       "cycles_with_crackle": 0,
       "cycles_with_wheeze": 0,
       "cycles_with_both": 0,
-      "note": "tanpa crackle/wheeze pada anotasi"
+      "note": "tanpa crackle/wheeze pada anotasi",
+      "model": {
+        "model_version": "logmel-cnn-v0",
+        "cycles_predicted": {
+          "normal": 7,
+          "crackle": 5,
+          "wheeze": 0,
+          "both": 0
+        },
+        "cycles_matching_annotation": 7,
+        "cycles": 12,
+        "in_training_data": true,
+        "heldout_macro_f1": 0.4271,
+        "note": "Eksperimen offline pada siklus beranotasi; bukan diagnosis dan bukan inferensi mikrofon HP."
+      }
     },
     {
       "id": "104_1b1_Al_sc_Litt3200",

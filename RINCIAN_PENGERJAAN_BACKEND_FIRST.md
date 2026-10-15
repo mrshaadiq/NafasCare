@@ -42,6 +42,7 @@ Revisi 12 Oktober 2026: status pengerjaan, keputusan database, dan perbaikan has
 | Check-in: `POST /check-ins`, `GET /check-ins` | Selesai | Tes |
 | Ringkasan: `POST /summaries`, `GET /summaries/:id` (template) | Selesai | Tes + uji D1 lokal |
 | Audio: `GET /audio-samples`, `POST /screenings/:id/audio`, `GET /screenings/:id/audio`; satu sampel ditolak oleh ambang laju sampel demo | Selesai | Tes + uji D1 lokal |
+| Audio: eksperimen model offline (`ml/`): baseline MFCC+SVM dan CNN log-mel, split pasien. `AudioResult.model` + `model_version` diisi dari manifest (`ml/predict_manifest.py`), terpisah dari `pattern` anotasi; tidak dipakai aturan triase; sampel ditolak tidak dinilai | Selesai | CNN macro-F1 0,43 (SVM 0,35) pada 25 pasien uji, split acak; 41 tes lolos, `tsc` api dan web bersih |
 | Berbagi ringkasan, audit penuh, penghapusan data | Ditunda (P2) | Tidak dikerjakan |
 | Frontend (`web/`): React + Vite + Tailwind + React Router. Layar: persetujuan → skrining → hasil + sampel audio; instruksi → periksa → jadwal (aktif/jeda/hentikan) + laporan minum; catatan harian; ringkasan | Scaffold dan semua layar selesai; `tsc` dan `vite build` lolos. **Belum diuji di browser.** | Perlu uji manual dan tangkapan layar untuk deck |
 
