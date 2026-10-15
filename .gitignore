@@ -2,3 +2,5 @@ node_modules/
 .wrangler/
 .dev.vars
 web/dist/
+ml/artifacts/
+__pycache__/

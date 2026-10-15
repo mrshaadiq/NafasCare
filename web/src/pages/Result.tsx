@@ -121,7 +121,8 @@ function AudioSection({ screeningId }: { screeningId: string }) {
       <h2 className="font-medium">Contoh analisis suara (sampel riset)</h2>
       <p className="text-sm text-slate-600">
         Pola di bawah berasal dari anotasi dataset riset ICBHI, bukan prediksi model dan bukan rekaman dari
-        ponsel Anda. Hasil ini tidak mengubah arahan di atas.
+        ponsel Anda. Kotak "eksperimen model offline", bila ada, terpisah dari pola ini. Hasil ini tidak mengubah
+        arahan di atas.
       </p>
 
       {error && <Notice tone="error">{error}</Notice>}
@@ -135,6 +136,25 @@ function AudioSection({ screeningId }: { screeningId: string }) {
             <p>Pola: {PATTERN[audio.pattern]}</p>
           )}
           {audio.rejection_reason && <p>Alasan: {audio.rejection_reason}</p>}
+          {audio.model && (
+            <div className="rounded border border-amber-200 bg-amber-50 p-3 mt-2 space-y-1">
+              <p className="font-medium">Eksperimen model offline ({audio.model.model_version})</p>
+              <p>
+                Prediksi per siklus:{" "}
+                {Object.entries(audio.model.cycles_predicted)
+                  .map(([k, n]) => `${k} ${n}`)
+                  .join(" · ")}
+                . Sama dengan anotasi pada {audio.model.cycles_matching_annotation} dari {audio.model.cycles} siklus.
+              </p>
+              <p className="text-slate-700">
+                {audio.model.in_training_data
+                  ? "Pasien sampel ini ada di data latih, jadi kecocokan di atas terlalu optimistis. "
+                  : "Pasien sampel ini tidak dipakai melatih model. "}
+                Macro-F1 pada pasien uji: {audio.model.heldout_macro_f1.toFixed(2)} (masih rendah). Bukan diagnosis,
+                belum divalidasi klinis, dan tidak dipakai oleh aturan triase.
+              </p>
+            </div>
+          )}
           <p className="text-slate-600">{audio.notice}</p>
         </div>
       )}
