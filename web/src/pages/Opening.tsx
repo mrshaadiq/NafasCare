@@ -9,10 +9,10 @@ export default function Opening() {
     <Screen>
       <div className="relative flex min-h-dvh flex-1 flex-col overflow-hidden bg-[linear-gradient(117.8deg,#87ceeb_6%,#d8eff7_60%,#fffaf0_94%)] px-6 py-6">
         <div className="flex items-center gap-2.5">
-          <span className="grid size-13 place-items-center rounded-2xl bg-steel shadow-[0_12px_15px_rgba(70,130,180,0.22)]">
-            <img src={ICON.logoLight} alt="" className="size-8.5" />
+          <span className="grid size-13 place-items-center rounded-2xl bg-white shadow-[0_12px_15px_rgba(70,130,180,0.22)]">
+            <img src={ICON.brandMark} alt="" className="size-8.5 object-cover" />
           </span>
-          <span className="font-hand text-lg font-bold text-ink">NapasCare</span>
+          <span className="text-lg font-black tracking-[-0.4px] text-ink">NapasCare</span>
         </div>
 
         <main className="flex flex-1 flex-col justify-center pb-24">

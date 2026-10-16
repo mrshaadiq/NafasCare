@@ -37,7 +37,7 @@ export default function JadwalHariIni() {
         </SecondaryButton>
 
         <div className="flex gap-3 rounded-2xl border border-[rgba(77,159,255,0.25)] bg-[rgba(135,206,235,0.18)] p-4">
-          <img src={ICON.info} alt="" className="mt-0.5 size-5 shrink-0" />
+          <img src={ICON.infoCircle} alt="" className="mt-0.5 size-5 shrink-0" />
           <p className="text-base leading-[26px] text-muted">
             Jika notifikasi perangkat gagal, jadwal tetap tersedia di halaman ini.
           </p>

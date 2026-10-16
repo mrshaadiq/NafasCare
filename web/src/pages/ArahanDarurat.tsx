@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { DemoTag, Screen } from "../components/ui";
+import { Brand, DemoTag, Screen } from "../components/ui";
 import { ICON } from "../components/icons";
 
 const alasanDefault = ["Sesak berat saat istirahat"];
@@ -20,10 +20,7 @@ export default function ArahanDarurat() {
         }}
       >
         <header className="flex h-20 items-center justify-between border-b border-[rgba(255,107,107,0.2)] px-5">
-          <div className="flex items-center gap-2">
-            <img src={ICON.logo} alt="" className="size-5 brightness-200" />
-            <span className="font-hand text-base font-bold text-cream">NapasCare</span>
-          </div>
+          <Brand light />
           <DemoTag />
         </header>
 
@@ -36,11 +33,11 @@ export default function ArahanDarurat() {
             Perlu tindakan segera
           </span>
 
-          <h1 className="mt-5 font-hand text-[33px] font-bold leading-[36px] tracking-[-1.5px] text-cream">
+          <h1 className="mt-5 text-[33.6px] font-bold leading-[35.3px] tracking-[-1.5px] text-white">
             Informasi yang Anda berikan menunjukkan perlunya pertolongan medis segera.
           </h1>
 
-          <p className="mt-5 max-w-[368px] text-base leading-[26px] text-[#a9b4bf]">
+          <p className="mt-5 max-w-[368px] text-base leading-[26px] text-white">
             Jangan lanjutkan rekaman atau analisis lain. Hubungi layanan medis setempat atau minta bantuan orang di dekat
             Anda.
           </p>
@@ -72,7 +69,7 @@ export default function ArahanDarurat() {
             </button>
           </div>
 
-          <p className="mt-3 max-w-[368px] text-xs leading-5 text-[#7890a8]">
+          <p className="mt-3 max-w-[368px] text-xs leading-5 text-white">
             Nomor layanan dapat berbeda menurut lokasi. Pastikan nomor yang berlaku di wilayah Anda.
           </p>
         </main>

@@ -28,7 +28,7 @@ export default function BelumDapatDinilai() {
 
         <Card className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
-            <img src={ICON.info} alt="" className="size-5" />
+            <img src={ICON.infoCircle} alt="" className="size-5" />
             <h2 className="font-hand text-lg font-bold text-ink">Yang masih kurang</h2>
           </div>
           <ul className="flex flex-col gap-1 text-base leading-[26px] text-muted">

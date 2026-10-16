@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { PrimaryButton, SecondaryButton } from "../components/ui";
 import Pengaturan from "./Pengaturan";
 
-const pilihan = ["catatan gejala", "instruksi dan jadwal", "rekaman audio", "semua"];
+const pilihan = ["Catat Gejala", "Instruksi dan Jadwal", "Rekaman Audio", "Semua"];
 
 /** Lembar konfirmasi di atas halaman Pengaturan, sesuai artboard Figma. */
 export default function KonfirmasiHapusData() {
   const navigate = useNavigate();
-  const [dipilih, setDipilih] = useState<string[]>([]);
+  const [dipilih, setDipilih] = useState<string[]>(["Catat Gejala"]);
   const [terkirim, setTerkirim] = useState(false);
 
   const toggle = (nama: string) =>

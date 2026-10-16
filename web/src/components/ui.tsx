@@ -25,11 +25,21 @@ export function Screen({ children, dark = false }: { children: ReactNode; dark?:
   );
 }
 
-export function Brand() {
+/** Logo NapasCare: lingkaran dasar dari Figma dengan tanda Breeze di atasnya. */
+export function BrandLogo() {
+  return (
+    <span className="relative grid size-[30px] shrink-0 place-items-center">
+      <img src={ICON.brandEllipse} alt="" className="absolute inset-0 size-full" />
+      <img src={ICON.brandMark} alt="" className="relative size-[30px] object-cover" />
+    </span>
+  );
+}
+
+export function Brand({ light = false }: { light?: boolean }) {
   return (
     <div className="flex items-center gap-2">
-      <img src={ICON.logo} alt="" className="size-5" />
-      <span className="font-hand text-base font-bold tracking-[-0.4px] text-ink">NapasCare</span>
+      <BrandLogo />
+      <span className={`text-base font-black tracking-[-0.4px] ${light ? "text-cream" : "text-ink"}`}>NapasCare</span>
     </div>
   );
 }
