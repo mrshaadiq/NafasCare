@@ -60,7 +60,7 @@ export default function PilihanTindakLanjut() {
               Lihat perubahan gejala dan jadwal yang Anda laporkan dalam satu tempat.
             </p>
           </div>
-          <PrimaryButton trailing={null} className="bg-mist text-ink shadow-none" onClick={() => navigate("/pantau")}>
+          <PrimaryButton trailing={null} onClick={() => navigate("/pantau")}>
             Buka Pantau
           </PrimaryButton>
         </Card>

@@ -136,9 +136,12 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 
 const baseButton =
   "flex w-full items-center justify-center gap-2.5 rounded-[14.4px] px-4 py-3.5 text-base font-bold transition disabled:cursor-not-allowed disabled:opacity-40";
-export const primaryClass = `${baseButton} bg-gradient-to-br from-sky to-steel text-[#23313d] shadow-[0_10px_15px_rgba(70,130,180,0.24)]`;
-export const secondaryClass = `${baseButton} border border-line bg-mist text-ink`;
-export const ghostClass = `${baseButton} text-steel`;
+/** Warna tombol aksi: gradasi hijau lime ke hijau, teks gelap. */
+export const ctaFill =
+  "bg-[linear-gradient(135deg,#cdeb8f_0%,#a6dc75_35%,#6cc35d_70%,#4fb64d_100%)] text-[#23313d] shadow-[0_10px_15px_rgba(79,182,77,0.28)]";
+export const primaryClass = `${baseButton} ${ctaFill}`;
+export const secondaryClass = `${baseButton} ${ctaFill}`;
+export const ghostClass = `${baseButton} text-[#2f7d32]`;
 
 export function PrimaryButton({
   children,

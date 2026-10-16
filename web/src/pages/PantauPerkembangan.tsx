@@ -67,7 +67,7 @@ export default function PantauPerkembangan() {
             Bila keluhan memburuk, lakukan pemeriksaan ulang sekarang tanpa menunggu check-in berikutnya.
           </p>
           <PrimaryButton onClick={() => navigate("/tanda-bahaya")}>Periksa ulang kondisi</PrimaryButton>
-          <button type="button" onClick={() => navigate("/jadwal")} className="py-2 text-base font-bold text-steel">
+          <button type="button" onClick={() => navigate("/jadwal")} className="py-2 text-base font-bold text-[#2f7d32]">
             Lihat semua reminder
           </button>
         </Card>

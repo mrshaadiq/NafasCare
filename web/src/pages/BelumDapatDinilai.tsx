@@ -39,7 +39,7 @@ export default function BelumDapatDinilai() {
           <button
             type="button"
             onClick={() => navigate("/darurat")}
-            className="py-2 text-left text-base font-bold text-steel"
+            className="py-2 text-left text-base font-bold text-[#2f7d32]"
           >
             Cari bantuan medis
           </button>
