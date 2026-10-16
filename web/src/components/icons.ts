@@ -1,0 +1,44 @@
+/**
+ * Ikon dari desain Figma (file Breeze). Nilai di sini awalnya URL Figma sementara;
+ * skrip unduh aset menggantinya dengan berkas lokal di public/figma/.
+ */
+export const ICON = {
+  logo: "/figma/b3b34f0c-85e7-41ee-a055-9f00729093e4.svg",
+  logoLight: "/figma/31e748ba-9752-4afa-a7da-5ff5946c0f0b.svg",
+  back: "/figma/a7652560-3c01-46e0-9df8-656389961a5a.svg",
+  arrow: "/figma/cbedc055-c64d-4758-9111-415dc49940fc.svg",
+  chevron: "/figma/6ebb6a58-9d8f-425c-a564-95398bdd7e2e.svg",
+  pulse: "/figma/06eec42b-6505-44ee-8d9c-0817d1417343.svg",
+  calendar: "/figma/c0b5896e-e339-4bb1-9f00-43ef9eaed157.svg",
+  empty: "/figma/ff77cbe7-ed24-4cec-a1ca-308f2a1f572f.svg",
+  plus: "/figma/ad941c12-2bc1-4ed5-a5b6-e5833bd803b0.svg",
+  tag: "/figma/9e480bba-e9a1-4633-b8ea-eec3c87bfa3a.svg",
+  doc: "/figma/abc9b05a-8aee-4210-b859-c6360e2a5375.svg",
+  info: "/figma/597273d7-7c32-4b1b-bf5b-422670ff10d6.svg",
+  warning: "/figma/ff1694c9-e966-4906-a86b-bbf7bb7c7d96.svg",
+  alertLarge: "/figma/195ef5e6-fe88-4cb3-a2dc-71664325e15a.svg",
+  alertSmall: "/figma/102c9b90-c11a-440c-8000-7987327f392b.svg",
+  shield: "/figma/ea63d9fa-5f9d-4aa6-ae82-548c084b0a29.svg",
+  mic: "/figma/601b8f93-c574-454e-814e-65c711a16e8b.svg",
+  micSmall: "/figma/e33d51d2-d90a-400c-b5cb-a426af2f3dfa.svg",
+  upload: "/figma/04635745-f744-4b80-b643-65045c996058.svg",
+  docSmall: "/figma/e56d18c3-04fc-4d43-9aec-fd784274d6e1.svg",
+  sound: "/figma/a3bfbf4e-e876-4647-996d-5da9d574e225.svg",
+  warningAmber: "/figma/22495483-f5be-4015-a0b8-ed08857dbfe6.svg",
+  warningOutline: "/figma/554e71c7-4a53-47f5-a412-9aef45ff0214.svg",
+  listCheck: "/figma/97ec8ef7-0aef-4ba5-a46f-7f51e991894a.svg",
+  more: "/figma/76034919-61bd-4d84-8cdd-45a1b1cc103c.svg",
+  download: "/figma/2579f84f-24d9-45de-9f7e-19f71d6c646e.svg",
+  share: "/figma/9442edd5-4d80-44a8-95fc-de3934220521.svg",
+  consent: {
+    dilakukan: "/figma/6bb8bdee-1fa6-401e-900d-654314689703.svg",
+    tidakDilakukan: "/figma/b9e679be-f3c4-4a75-afb3-d4cc454fb240.svg",
+    dicatat: "/figma/90252ad6-4945-4375-9947-0329577110de.svg",
+  },
+  nav: {
+    beranda: "/figma/d9795cc3-a1d6-4643-a52e-35090755e632.svg",
+    pantau: "/figma/8981e32d-0f47-4d51-97c2-f146a55916c9.svg",
+    ringkasan: "/figma/33d68eb4-68e1-4044-a3a0-fc15792ea774.svg",
+    pengaturan: "/figma/344fac94-476d-4d93-ac63-ab5f2dfa293d.svg",
+  },
+} as const;
