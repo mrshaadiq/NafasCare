@@ -81,7 +81,7 @@ export default function SalinInstruksiPerawatan() {
               Jika pembacaan gagal, gunakan formulir manual di atas. Hasil OCR tidak pernah mengaktifkan reminder otomatis.
             </p>
           </div>
-          <button type="button" className="py-2 text-base font-bold text-steel" onClick={() => navigate("/instruksi/tinjau")}>
+          <button type="button" className="py-2 text-base font-bold text-[#2f7d32]" onClick={() => navigate("/instruksi/tinjau")}>
             Coba OCR demo
           </button>
         </Card>

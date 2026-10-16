@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Brand, DemoTag, Screen } from "../components/ui";
+import { Brand, ctaFill, DemoTag, Screen } from "../components/ui";
 import { ICON } from "../components/icons";
 
 const alasanDefault = ["Sesak berat saat istirahat"];
@@ -55,7 +55,7 @@ export default function ArahanDarurat() {
           <div className="mt-6 flex w-full flex-col gap-2.5">
             <a
               href="tel:112"
-              className="flex items-center justify-center gap-2.5 rounded-[14.4px] bg-[#b84444] px-4 py-3.5 text-base font-bold text-cream"
+              className={`flex items-center justify-center gap-2.5 rounded-[14.4px] px-4 py-3.5 text-base font-bold ${ctaFill}`}
             >
               <img src={ICON.alertSmall} alt="" className="size-5" />
               Hubungi layanan medis
@@ -63,7 +63,7 @@ export default function ArahanDarurat() {
             <button
               type="button"
               onClick={() => navigate("/ringkasan")}
-              className="rounded-[14.4px] border border-line bg-mist px-4 py-3.5 text-base font-bold text-ink"
+              className={`rounded-[14.4px] px-4 py-3.5 text-base font-bold ${ctaFill}`}
             >
               Lihat ringkasan untuk dibawa
             </button>

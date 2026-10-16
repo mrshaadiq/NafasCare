@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BottomNav, Card, ClinicalNote, GhostButton, PageHeading, PrimaryButton, Screen, TopBar } from "../components/ui";
+import { BottomNav, Card, ClinicalNote, ctaFill, GhostButton, PageHeading, PrimaryButton, Screen, TopBar } from "../components/ui";
 import { ICON } from "../components/icons";
 
 type Status = "terbaca" | "ambigu";
@@ -78,7 +78,7 @@ export default function TinjauDraftInstruksi() {
           <button
             type="button"
             onClick={() => navigate("/instruksi/salin")}
-            className="flex w-full items-center justify-center rounded-[14.4px] border border-line bg-mist px-4 py-3.5 text-base font-bold text-ink"
+            className={`flex w-full items-center justify-center rounded-[14.4px] px-4 py-3.5 text-base font-bold ${ctaFill}`}
           >
             Edit draf
           </button>

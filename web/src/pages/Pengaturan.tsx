@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BottomNav, Card, ClinicalNote, PageHeading, Screen, SecondaryButton, TopBar } from "../components/ui";
+import { BottomNav, Card, ClinicalNote, ctaFill, PageHeading, Screen, SecondaryButton, TopBar } from "../components/ui";
 import { ICON } from "../components/icons";
 
 export default function Pengaturan() {
@@ -65,7 +65,7 @@ export default function Pengaturan() {
             <button
               type="button"
               onClick={() => navigate("/pengaturan/hapus-data")}
-              className="rounded-[14.4px] bg-[#b84444] px-4 py-3.5 text-base font-bold text-cream"
+              className={`rounded-[14.4px] px-4 py-3.5 text-base font-bold ${ctaFill}`}
             >
               Minta penghapusan data
             </button>

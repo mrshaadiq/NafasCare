@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PrimaryButton, SecondaryButton } from "../components/ui";
+import { ctaFill, PrimaryButton, SecondaryButton } from "../components/ui";
 import Pengaturan from "./Pengaturan";
 
 const pilihan = ["Catat Gejala", "Instruksi dan Jadwal", "Rekaman Audio", "Semua"];
@@ -82,7 +82,7 @@ export default function KonfirmasiHapusData() {
                   type="button"
                   disabled={dipilih.length === 0}
                   onClick={() => setTerkirim(true)}
-                  className="flex w-full items-center justify-center rounded-[14.4px] bg-[#b84444] px-4 py-3.5 text-base font-bold text-cream disabled:opacity-40"
+                  className={`flex w-full items-center justify-center rounded-[14.4px] px-4 py-3.5 text-base font-bold disabled:opacity-40 ${ctaFill}`}
                 >
                   Kirim permintaan
                 </button>
