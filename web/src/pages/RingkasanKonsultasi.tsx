@@ -1,4 +1,4 @@
-import { BottomNav, Card, ClinicalNote, PageHeading, Screen, SecondaryButton, PrimaryButton, TopBar } from "../components/ui";
+import { Brand, BottomNav, Card, ClinicalNote, PageHeading, Screen, SecondaryButton, PrimaryButton, TopBar } from "../components/ui";
 import { ICON } from "../components/icons";
 
 const bagian = [
@@ -49,10 +49,7 @@ export default function RingkasanKonsultasi() {
 
         <Card className="overflow-hidden p-0 shadow-[0_10px_28px_rgba(70,130,180,0.08)]">
           <div className="flex items-center justify-between gap-4 bg-sky/20 p-6">
-            <div className="flex items-center gap-2">
-              <img src={ICON.logo} alt="" className="size-5" />
-              <span className="font-hand text-base font-bold text-ink">NapasCare</span>
-            </div>
+            <Brand />
             <div className="text-right">
               <p className="text-base font-bold text-ink">Ringkasan konsultasi</p>
               <p className="text-xs text-muted">Periode sampai 16 Oktober 2026</p>

@@ -3,8 +3,8 @@
  * skrip unduh aset menggantinya dengan berkas lokal di public/figma/.
  */
 export const ICON = {
-  logo: "/figma/b3b34f0c-85e7-41ee-a055-9f00729093e4.svg",
-  logoLight: "/figma/31e748ba-9752-4afa-a7da-5ff5946c0f0b.svg",
+  brandEllipse: "/figma/d0860a4b-325d-45d6-9702-94257fec2f66.svg",
+  brandMark: "/brand/breeze.png",
   back: "/figma/a7652560-3c01-46e0-9df8-656389961a5a.svg",
   arrow: "/figma/cbedc055-c64d-4758-9111-415dc49940fc.svg",
   chevron: "/figma/6ebb6a58-9d8f-425c-a564-95398bdd7e2e.svg",
@@ -15,6 +15,7 @@ export const ICON = {
   tag: "/figma/9e480bba-e9a1-4633-b8ea-eec3c87bfa3a.svg",
   doc: "/figma/abc9b05a-8aee-4210-b859-c6360e2a5375.svg",
   info: "/figma/597273d7-7c32-4b1b-bf5b-422670ff10d6.svg",
+  infoCircle: "/figma/90f803be-9073-4bcc-a6fd-b0329aff476d.svg",
   warning: "/figma/ff1694c9-e966-4906-a86b-bbf7bb7c7d96.svg",
   alertLarge: "/figma/195ef5e6-fe88-4cb3-a2dc-71664325e15a.svg",
   alertSmall: "/figma/102c9b90-c11a-440c-8000-7987327f392b.svg",

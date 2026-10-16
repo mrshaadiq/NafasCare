@@ -60,7 +60,7 @@ export default function PantauPerkembangan() {
 
         <Card className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
-            <img src={ICON.logo} alt="" className="size-5" />
+            <img src={ICON.pulse} alt="" className="size-5" />
             <h2 className="font-hand text-lg font-bold text-ink">Pengingat dan evaluasi ulang</h2>
           </div>
           <p className="text-base leading-[26px] text-muted">
