@@ -2,6 +2,15 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ICON } from "./icons";
 
+/** Banner wajib untuk prototipe publik; tampil di setiap layar. */
+export function SimulasiBanner() {
+  return (
+    <div role="note" className="border-b border-amber-300 bg-amber-100 px-4 py-2 text-center text-xs text-amber-900">
+      <strong>SIMULASI.</strong> Data demo dan sintetis. Jangan isi data pribadi atau rekam medis asli.
+    </div>
+  );
+}
+
 /** Bingkai 400px seperti artboard Figma; di layar lebar konten tampil di tengah. */
 export function Screen({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
@@ -10,6 +19,7 @@ export function Screen({ children, dark = false }: { children: ReactNode; dark?:
         dark ? "bg-[#13090e] text-cream" : "bg-cream"
       }`}
     >
+      <SimulasiBanner />
       {children}
     </div>
   );
